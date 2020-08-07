@@ -1,0 +1,22 @@
+# ProtonVPN
+# Not for use with Docker Swarm!
+
+version: "3.7"
+
+services:
+
+  protonvpn:
+    image: protonvpn
+    command: sh /root/startup.sh
+    environment:
+      SOCKD_WORKERS: "10"
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    ports:
+      - "1080:1080"
+    stdin_open: true
+    tty: true
+    volumes:
+        - "./startup.sh:/root/startup.sh"
